@@ -6,7 +6,7 @@ Class {
 		'selected',
 		'selectedComponent'
 	],
-	#category : 'Magritte-Seaside-Examples'
+	#category : #'Magritte-Seaside-Examples'
 }
 
 { #category : #initialization }
@@ -72,7 +72,7 @@ MADescriptionEditor >> defaultDescriptionClasses [
 		add: MADurationDescription;
 		add: MADateDescription;
 		add: MATimeDescription;
-		add: MATimeStampDescription;
+		add: MADateAndTimeDescription;
 		add: nil;
 		add: MAColorDescription;
 		add: MATokenDescription;
