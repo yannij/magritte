@@ -7,6 +7,11 @@ Class {
 	#category : #'Magritte-Model-Description'
 }
 
+{ #category : #'accessing-defaults' }
+MAElementDescription class >> defaultAutoAccept [
+	^ false
+]
+
 { #category : #'instance creation' }
 MAElementDescription class >> new [
 	"override #new so that we can create an object without adding it to the collection returned by: MAElementDescription withAllConcreteClasses,
@@ -26,6 +31,26 @@ MAElementDescription >> asContainer [
 ]
 
 { #category : #accessing }
+MAElementDescription >> autoAccept [
+	"Define whether new memento values should be automatically propagated to a model.
+	
+	New values are propagated to the model only if successfully validated. See {{gtMethod: GtMagritteMemento >> #autoAcceptValue: }} for more details."
+
+	^ self 
+		propertyAt: #autoAccept 
+		ifAbsent: [ self class defaultAutoAccept ]
+]
+
+{ #category : #accessing }
+MAElementDescription >> autoAccept: aBoolean [
+	"Set whether new memento values should be automatically propagated to a model.
+	
+	New values are propagated to the model only if successfully validated. See {{gtMethod: GtMagritteMemento >> #autoAcceptValue: }} for more details."
+	
+	self propertyAt: #autoAccept put: aBoolean
+]
+
+{ #category : #accessing }
 MAElementDescription >> default [
 	^ self propertyAt: #default ifAbsent: [ self class defaultDefault ]
 ]
@@ -33,6 +58,18 @@ MAElementDescription >> default [
 { #category : #accessing }
 MAElementDescription >> default: anObject [
 	self propertyAt: #default put: anObject
+]
+
+{ #category : #accessing }
+MAElementDescription >> definingContext [
+	
+	^ self propertyAt: #definingContext ifAbsent: [ nil ]
+]
+
+{ #category : #accessing }
+MAElementDescription >> definingContext: anMADefiningContext [
+	
+	^ self propertyAt: #definingContext  put: anMADefiningContext
 ]
 
 { #category : #testing }

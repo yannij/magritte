@@ -46,26 +46,11 @@ MAActionDescription >> action [
 { #category : #accessing }
 MAActionDescription >> action: aValuable [
 
+	| anOldAction |
+	anOldAction := action.
 	action := aValuable.
-]
-
-{ #category : #converting }
-MAActionDescription >> asGlmAction [
-	| result |
-	result := GLMGenericAction new
-			action: [ :pres :receiver | 
-				self performOn: receiver.
-				self isMutator ifTrue: [ pres update ] ];
-			enabledCondition: self enableBlock;
-			help: self comment;
-			shortcut: self shortcut;
-			title: self label;
-			yourself.
 	
-	"Glamour doesn't like setting a nil icon!"
-	self icon ifNotNil: [ :i | result icon: i ].
-	^ result
-			
+	self propertyAnnounceKey: #action oldValue: anOldAction newValue: aValuable
 ]
 
 { #category : #accessing }
@@ -78,6 +63,18 @@ MAActionDescription >> comment [
 MAActionDescription >> comment: aString [
 
 	comment := aString.
+]
+
+{ #category : #accessing }
+MAActionDescription >> definingContext [
+	
+	^ self propertyAt: #definingContext ifAbsent: [ nil ]
+]
+
+{ #category : #accessing }
+MAActionDescription >> definingContext: anMADefiningContext [
+	
+	^ self propertyAt: #definingContext  put: anMADefiningContext
 ]
 
 { #category : #accessing }
@@ -154,7 +151,11 @@ MAActionDescription >> label [
 { #category : #accessing }
 MAActionDescription >> label: aString [
 
+	| anOldLabel |
+	anOldLabel := label.
 	label := aString.
+	
+	self propertyAnnounceKey: #label oldValue: anOldLabel newValue: aString
 ]
 
 { #category : #private }
